@@ -1,0 +1,6 @@
+<h2 class="">Sản phẩm hot</h2>
+<div class="w-full grid grid-cols-4 mt-3 h-[550px]">
+    @for (pro of listPro; track $index) {
+    <app-product [infoProduct]="pro"></app-product>
+    }
+</div>

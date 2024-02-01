@@ -1,0 +1,62 @@
+<div class="m-5 mt-10 pl-5 pr-5 grid md:grid-cols-2 md:text-start sm:text-center sm:grid-cols-1 grid-cols-2">
+    <div class=" flex justify-center items-center mt-3">
+        <div class="relative">
+            <p class="absolute top-[5px] left-[-10px] w-[60px] h-[60px] 
+                flex justify-center items-center rounded-full 
+                 bg-red-500">
+                <span class="text-white font-bold text-xl">-{{ detailProduct?.discount?detailProduct.discount:0
+                    }}%</span>
+            </p>
+            <img class="p-5 rounded-t-lg max-h-[500px]" src="{{ detailProduct?.img&&detailProduct?.img }}"
+                alt="{{ detailProduct?.name_product&&detailProduct.name_product }}" />
+        </div>
+    </div>
+    <div class="flex flex-col p-4 leading-normal">
+        <h2 class="mb-2 text-4xl font-bold tracking-tight text-gray-900">
+            {{ detailProduct?.name_product&&detailProduct.name_product }}
+        </h2>
+        <div class="max-w-md grid  sm:grid-cols-1 md:grid-cols-2 items-center gap-3 mt-3">
+            <p>Tác giả: <b>{{ detailProduct?.author&&detailProduct.author }}</b></p>
+            <p>Nhà Cung Cấp: <b>{{ detailProduct&&detailProduct.provider }}</b></p>
+            <p>NXB: <b>{{ detailProduct&&detailProduct.publisher }}</b></p>
+            <p>Đã bán: <b>{{ detailProduct&&detailProduct.sold }}</b></p>
+        </div>
+        <div class="mt-4">
+            <p class="font-bold text-2xl ">
+                <span class="text-red-500 text-3xl mr-3">
+                    {{ detailProduct&&(detailProduct.price - (detailProduct.price *
+                    (detailProduct.discount?detailProduct.discount:0)/100))
+                    | number:'1.0-0'
+                    }}<sup>đ</sup>
+                </span>
+                <span class="line-through text-gray-500">
+                    {{ detailProduct&&detailProduct?.price | number:'1.0-0'
+                    }}<sup>đ</sup>
+                </span>
+            </p>
+
+        </div>
+
+        <div class="mt-4 flex items-center">
+            <div class="mr-3">
+                <button (click)="ChangeAmount(-1)"
+                    class="p-[5px_20px] hover:bg-gray-300 rounded-md border border-gray-500">
+                    -
+                </button>
+                <input class="p-[5px] text-center max-w-[80px] rounded-lg border border-gray-400" type="number"
+                    [ngModel]="amount" value="{{ amount }}" min="1" (ngModelChange)="CheckAmountChange($event)">
+                <button (click)="ChangeAmount(1)"
+                    class="p-[5px_20px] hover:bg-gray-300 rounded-md border border-gray-500">
+                    +
+                </button>
+            </div>
+            <button type="button" (click)="addToCart(detailProduct&&detailProduct?.id)" class="text-blue-700 hover:text-white border border-blue-500 hover:bg-blue-500 focus:ring-4 focus:outline-none 
+                 focus:ring-blue-300  rounded-lg text-lg font-bold  p-[5px_30px] text-center">
+                Thêm vào giỏ hàng
+            </button>
+        </div>
+        <div class="{{ check }}">
+            <p class="text-red-400">Vui lòng nhập số lượng lớn hơn 0.</p>
+        </div>
+    </div>
+</div>

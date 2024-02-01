@@ -1,0 +1,38 @@
+<div class="h-full p-2">
+    <div class="bg-white border border-gray-200 rounded-lg shadow p-2">
+        <a routerLink="/shop/{{ infoProduct.id }}" class="relative">
+            <p class="absolute top-[5px] left-[-10px] w-[60px] h-[60px] 
+                flex justify-center items-center rounded-full 
+                 bg-red-500">
+                <span class="text-white font-bold text-xl">-{{ infoProduct.discount }}%</span>
+            </p>
+            <img class="p-8 rounded-t-lg" src="{{ infoProduct.img }}" alt="{{ infoProduct.name_product }}" />
+        </a>
+        <div class="px-5 pb-5">
+            <a routerLink="/shop/1">
+                <h5 class="text-xl font-semibold tracking-tight text-gray-900 ">
+                    {{ infoProduct.name_product }}
+                </h5>
+            </a>
+
+            <div class="flex items-center justify-between mt-4">
+
+                <span class="text-2xl flex flex-col font-bold text-gray-900 ">
+                    <span class="text-red-500 text-3xl mr-3">
+                        {{ infoProduct.price - (infoProduct.price * (infoProduct.discount?infoProduct.discount:0)/100) |
+                        number:'1.0-0'
+                        }}<sup>đ</sup>
+                    </span>
+                    <span class="line-through text-gray-500">
+                        {{ infoProduct.price | number:'1.0-0'
+                        }}<sup>đ</sup>
+                    </span>
+                </span>
+
+                <button (click)="addToCart(infoProduct.id,1)"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Thêm vào giỏ</button>
+            </div>
+        </div>
+    </div>
+</div>

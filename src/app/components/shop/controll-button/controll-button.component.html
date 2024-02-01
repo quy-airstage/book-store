@@ -1,0 +1,32 @@
+<div class="my-3 mx-5 flex justify-between">
+    <div class="">
+        <button type="button" (click)="onClickCate(0,'')" class=" text-blue-500
+            hover:text-white border border-blue-500 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium
+            rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none ">
+            Tất cả sản phẩm
+        </button>
+        @if (listCate) {
+        @for (cate of listCate; track $index) {
+        <button type="button" (click)="onClickCate(cate.id,cate.name_category)" class=" text-blue-500
+            hover:text-white border border-blue-500 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium
+            rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none ">
+            {{ cate.name_category}}
+        </button>
+        }
+        }
+    </div>
+    <div class="">
+        <button type=" button" (click)="onClickPrice()"
+            class="text-blue-500 hover:text-white border border-blue-500 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none ">
+            Theo giá
+            @if (filterPrice!==null) {
+            @if (filterPrice) {<i class="fa-solid fa-arrow-up"></i> }
+            @else {<i class="fa-solid fa-arrow-down"></i>}
+            }
+        </button>
+        <button type="button" (click)="onClickDate()"
+            class="text-blue-500 hover:text-white border border-blue-500 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none ">
+            Mới nhất
+        </button>
+    </div>
+</div>

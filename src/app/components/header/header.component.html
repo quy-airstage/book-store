@@ -1,0 +1,41 @@
+<div class="mb-4 flex justify-between items-center">
+    <img class="" width="200px" src="../../../assets/public/img/logo.png" alt="" />
+    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center">
+        <li class="me-2">
+            <a routerLink="home" class="inline-block p-4 border-b-2 rounded-t-lg hover:border-black hover:bg-gray-300">
+                Trang chủ
+            </a>
+        </li>
+        <li class="me-2">
+            <a routerLink="shop" class="inline-block p-4 border-b-2 rounded-t-lg  hover:border-black hover:bg-gray-300">
+                Cửa hàng
+            </a>
+        </li>
+    </ul>
+    <div class="flex justify-between items-center">
+        <a routerLink="cart"
+            class="relative text-white  bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-3">
+            <p class="absolute top-[-10px] left-[-25px] font-bold text-xl p-2
+                flex justify-center items-center rounded-full 
+                text-white  bg-red-400" #amountCart>
+                {{ totalCart }}
+            </p>
+            <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        @if (user == null) {
+
+        <a routerLink="login">
+
+            <button type="button"
+                class="text-white bg-blue-600 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center ">
+                Đăng nhập</button>
+        </a>
+        }@else {
+        <a routerLink="user">
+            <button type="button"
+                class="text-white bg-blue-600 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center ">
+                Trang cá nhân</button>
+        </a>
+        }
+    </div>
+</div>

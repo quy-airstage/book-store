@@ -1,0 +1,80 @@
+<form [formGroup]="registerForm" (submit)="onSubmit()" class="max-w-sm mx-auto mt-[50px]">
+    <div class="mb-5 ">
+        <div class="flex items-center justify-center flex-col">
+            <h2 class="text-2xl font-bold">Đăng ký</h2>
+            <img class="p-3" width="200px" src="../../../assets/public/img/logo.png" alt="" />
+
+        </div>
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Tài khoản</label>
+        <input type="email" name="user" required formControlName="email"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="Email">
+
+        @if (registerForm.get("email")?.invalid && (registerForm.get("email")?.touched ||
+        registerForm.get("email")?.dirty)) {
+        <div class="inline-block text-red-500">
+            @if (registerForm.get("email")?.errors?.["required"]) {
+            <span class="text-red-500">Email không hợp lệ</span>
+            }
+            @if (registerForm.get("email")?.errors?.['pattern']) {
+            <span class="text-red-500">Email không đúng định dạng</span>
+            }
+        </div>
+        }
+
+
+    </div>
+    <div class=" mb-5">
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Mật
+            khẩu</label>
+        <input type="password" placeholder="Mật khẩu" name="password" formControlName="pass1"
+            autocomplete="current-password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            required>
+        @if (registerForm.get("pass1")?.invalid && (registerForm.get("pass1")?.touched ||
+        registerForm.get("pass1")?.dirty)) {
+        <div class="inline-block text-red-500">
+            @if (registerForm.get("pass1")?.errors?.["required"]) {
+            <span class="text-red-500">Vui lòng nhập mật khẩu</span>
+            }
+
+        </div>
+        }
+    </div>
+    <div class=" mb-5">
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Nhập lại mật
+            khẩu</label>
+        <input type="password" placeholder="Nhập lại mật khẩu" name="password" formControlName="pass2"
+            autocomplete="current-password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            required>
+        @if (registerForm.get("pass2")?.invalid && (registerForm.get("pass2")?.touched ||
+        registerForm.get("pass2")?.dirty)) {
+        <div class="inline-block text-red-500">
+            @if (registerForm.get("pass2")?.errors?.["required"]) {
+            <span class="text-red-500">Vui lòng nhập lại mật khẩu</span>
+            }
+        </div>
+        }
+        @else if (registerForm.get("pass2")?.value != registerForm.get("pass1")?.value) {
+        <div class="inline-block text-red-500">
+            <span class="text-red-500">Mật khẩu không trùng</span>
+        </div>
+        }
+
+    </div>
+
+    <div>
+
+        <button type="submit"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Đăng
+            ký</button>
+    </div>
+    <div class="flex justify-between mt-3">
+        @if (alert.status) {
+        <span class="{{ alert.color }} font-semibold text-xl">{{ alert.mess }}</span>
+        }
+
+        <a routerLink="/login" class="text-blue-500 font-semibold hover:underline">Bạn đã có tài khoản?</a>
+    </div>
+</form>

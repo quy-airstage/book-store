@@ -1,0 +1,188 @@
+<app-nav-admin></app-nav-admin>
+<div class="p-4 sm:ml-64">
+
+    <div class="flex items-center justify-center p-3 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+        <p class="text-2xl text-gray-400 dark:text-gray-500">
+            Thêm sản phẩm
+        </p>
+    </div>
+    <h2 class=" font-bold text-2xl text-gray-900 mb-10">Thông tin sản phẩm</h2>
+    <form class="w-[100%] mx-auto mt-5" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <div class="w-[100%] grid grid-cols-2 gap-[20px]">
+            <div class="relative z-0 w-full group">
+                <select name="id_category" formControlName="id_category" required
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                    <option value="" selected hidden>Chọn danh mục sản phẩm</option>
+                    @if (listCate) {
+                    @for (cate of listCate; track $index) {
+                    <option value="{{ cate.id }}">{{ cate.name_category }}</option>
+                    }
+                    }
+                </select>
+                <label for="id_category"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Danh mục</label>
+                @if (productForm.get('id_category')?.invalid && (productForm.get('id_category')?.touched ||
+                productForm.get('id_category')?.dirty)) {
+                <div class="inline-block">
+                    @if (productForm.get('id_category')?.errors?.["required"]) {
+                    <span class="text-red-500">Danh mục sản phẩm không được để trống</span>
+                    }
+                </div>}
+            </div>
+
+            <div class="relative z-0 w-full group">
+                <input type="text" formControlName="name_product"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required (change)="checkName(productForm.get('name_product')?.value)" />
+                <label for="name_product"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Tên sản phẩm</label>
+                @if (productForm.get('name_product')?.invalid && (productForm.get('name_product')?.touched ||
+                productForm.get('name_product')?.dirty)) {
+                <div class="inline-block">
+                    @if (productForm.get('name_product')?.errors?.["required"]) {
+                    <span class="text-red-500">Tên sản phẩm không được để trống</span>
+                    }
+
+                </div>}
+                @else if (ban) {
+                <span class="text-red-500">{{ ban }}</span>
+                }
+            </div>
+            <div class="relative z-0 w-full  group">
+                <input type="text" name="publisher" formControlName="publisher"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="publisher"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Nhà xuất bản</label>
+                @if (productForm.get('publisher')?.invalid && (productForm.get('publisher')?.touched ||
+                productForm.get('publisher')?.dirty)) {
+                <div class="inline-block">
+                    @if (productForm.get('publisher')?.errors?.["required"]) {
+                    <span class="text-red-500">
+                        Nhà xuất bản sản phẩm không được để trống</span>
+                    }
+                </div>}
+            </div>
+
+            <div class="relative z-0 w-full group">
+                <input type="number" name="price" formControlName="price"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="price"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Giá sản phẩm</label>
+                @if (productForm.get('price')?.invalid && (productForm.get('price')?.touched ||
+                productForm.get('price')?.dirty)) {
+                <div class="inline-block">
+                    @if (productForm.get('price')?.errors?.["required"]) {
+                    <span class="text-red-500">Giá sản phẩm không được để trống</span>
+                    }
+                </div>}
+            </div>
+            <div class="relative z-0 w-full group">
+                <input type="text" name="provider" formControlName="provider"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="provider"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Nhà cung cấp sản phẩm</label>
+                @if (productForm.get('provider')?.invalid && (productForm.get('provider')?.touched ||
+                productForm.get('provider')?.dirty)) {
+                <div class="inline-block">
+                    @if (productForm.get('provider')?.errors?.["required"]) {
+                    <span class="text-red-500">Nhà cung cấp sản phẩm không được để trống</span>
+                    }
+                </div>}
+            </div>
+            <div class="relative z-0 w-full group">
+                <input type="number" name="discount" formControlName="discount"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="discount"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Giảm giá sản phẩm</label>
+                @if (productForm.get('discount')?.invalid && (productForm.get('discount')?.touched ||
+                productForm.get('discount')?.dirty)) {
+                <div class="inline-block">
+                    @if (productForm.get('discount')?.errors?.["required"]) {
+                    <span class="text-blue-500">Giảm giá sản phẩm sẽ được mặc định là 0.</span>
+                    }
+                </div>}
+            </div>
+            <div class="relative z-0 w-full group">
+                <input type="text" name="author" formControlName="author"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="author"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Tác giả sản phẩm</label>
+                @if (productForm.get('author')?.invalid && (productForm.get('author')?.touched ||
+                productForm.get('author')?.dirty)) {
+                <div class="inline-block">
+                    @if (productForm.get('author')?.errors?.["required"]) {
+                    <span class="text-red-500">Tác giả sản phẩm không được để trống</span>
+                    }
+                </div>}
+            </div>
+            <div class="relative z-0 w-full group">
+                <input type="number" name="view" formControlName="view"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="view"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Lượt xem sản phẩm</label>
+                @if (productForm.get('view')?.invalid && (productForm.get('view')?.touched ||
+                productForm.get('view')?.dirty)) {
+                <div class="inline-block">
+                    @if (productForm.get('view')?.errors?.["required"]) {
+                    <span class="text-blue-500">Lượt xem sản phẩm sẽ được mặc định là 0.</span>
+                    }
+                </div>}
+            </div>
+            <div class="relative z-0 w-full group">
+                <input type="number" name="hot" formControlName="hot"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="hot"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                    Nổi bật sản phẩm</label>
+                @if (productForm.get('hot')?.invalid && (productForm.get('hot')?.touched ||
+                productForm.get('hot')?.dirty)) {
+                <div class="inline-block">
+                    @if (productForm.get('hot')?.errors?.["required"]) {
+                    <span class="text-blue-500">Nổi bật sản phẩm sẽ được mặc định là 0.</span>
+                    }
+                </div>}
+            </div>
+
+
+        </div>
+        <div class="w-[100%] grid grid-cols-2 gap-[20px] mt-2">
+            <div>
+
+                <label for="img" class="block mb-2 text-sm font-medium text-gray-900">Hình sản phẩm</label>
+                <input type="file" name="productImage" required (input)="fileChoosen($event)"
+                    (change)="onFileSelected($event)"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            </div>
+            <img *ngIf="imageUrl" width="200px" [src]="imageUrl" alt="Selected Image">
+        </div>
+
+        <div>
+            <button type="submit"
+                class="text-white mt-5 mr-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Thêm
+            </button>
+            <div class="ml-3 flex justify-between">
+                @if (alert.mess) {
+                <span class="{{ alert.color }}">{{ alert.mess }}</span>
+                }
+            </div>
+        </div>
+    </form>
+
+
+</div>

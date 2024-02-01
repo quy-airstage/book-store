@@ -1,0 +1,14 @@
+<div class="control_user_info col_4">
+    <button routerLink="/user" class="btn_control_user">Thông tin tài
+        khoản</button>
+    <button routerLink="/user/bills" class="btn_control_user">Đơn hàng của bạn</button>
+    <button routerLink="/user/change-password" class="btn_control_user">Thay đổi mật khẩu</button>
+    <div id="control_user_info" class="col_12">
+    </div>
+    @if (user) {
+    <button routerLink="/admin" class="btn_control_user">Quản trị Website</button>
+    }
+    <div class="logout">
+        <button (click)="logout()" class="btn_logout">Đăng xuất</button>
+    </div>
+</div>

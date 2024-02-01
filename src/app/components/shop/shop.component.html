@@ -1,0 +1,20 @@
+<div>
+    <app-controll-button (FilterCateClick)="HandleFilterCate($event)"
+        (FilterPriceClick)="HandleFilter($event)"></app-controll-button>
+    <app-search (Search)="getSearch($event)"></app-search>
+    <h3 class="mx-5 mt-3 text-3xl font-bold">{{ show }} | {{ controll }}</h3>
+    <div class="grid grid-cols-4 m-3">
+        <div *ngFor="let pro of listPro | paginate: { itemsPerPage: pageSize, currentPage: pageNum,totalItems: total }">
+            <!-- | paginate: { itemsPerPage: pageSize, currentPage: pageNum, totalItems: total} -->
+            <!-- @for (pro of listPro; track $index) { -->
+            <div>
+                <app-product [infoProduct]="pro"></app-product>
+            </div>
+            <!-- } -->
+        </div>
+    </div>
+    <div class="flex justify-center">
+        <pagination-controls (pageChange)="transPage($event)" previousLabel="Trước"
+            nextLabel="Sau"></pagination-controls>
+    </div>
+</div>

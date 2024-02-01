@@ -1,0 +1,41 @@
+<app-nav-admin></app-nav-admin>
+<div class="p-4 sm:ml-64">
+
+    <div class="flex items-center justify-center p-3 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+        <p class="text-2xl text-gray-400 dark:text-gray-500">
+            Edit cate
+        </p>
+    </div>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="max-w-sm mx-auto my-[50px]">
+        <div class="mb-5 ">
+            <div class="flex items-center justify-center flex-col">
+                <h2 class="text-2xl font-bold">Chỉnh sửa danh mục</h2>
+            </div>
+            <label for="cate" class="block mb-2 text-sm font-medium text-gray-900">Tên danh mục</label>
+            <input type="cate" name="cate" [(ngModel)]="newCate.name" #cate="ngModel" required
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                placeholder="Nhập tên danh mục">
+            @if (cate.invalid && (cate.touched || cate.dirty)) {
+            <div class="inline-block text-red-500">
+                @if (cate.errors?.["required"]) {
+                <span class="text-red-500">Tên danh mục không thể để trống.</span>
+                }
+
+            </div>
+            }
+        </div>
+        <div class="flex justify-between">
+            @if (alert.mess) {
+
+            <span class="{{ alert.color }}">{{ alert.mess }}</span>
+            }
+        </div>
+        <div>
+            <button type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Sửa</button>
+        </div>
+
+    </form>
+
+</div>

@@ -1,0 +1,90 @@
+<div>
+    @for (sta of listStatus; track $index) { <button type="button" (click)="GetBillsWithStatus(sta)"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">
+        {{sta.name}}</button>
+    }
+
+</div>
+@if (alert.mess) {
+
+<span class="{{ alert.color }}">{{ alert.mess }}</span>
+}
+<div class="overflow-x-auto shadow-md sm:rounded-lg m-3 p-3">
+    <h2 class="text-2xl my-2">Đơn hàng: <span class="font-bold">{{ statusGet.name }}</span> | Số đơn: {{
+        listBill.length||0 }}
+    </h2>
+    @if (listBill.length>0) {
+
+    <table class="relative flex flex-col w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr class="grid grid-cols-5">
+                <th scope="col" class="px-2 py-3">
+                    Mã đơn
+                </th>
+                <th scope="col" class="px-2 py-3">
+                    Email
+                </th>
+
+                <th scope="col" class="px-2 py-3">
+                    Ngày mua
+                </th>
+                <th scope="col" class="px-2 py-3">
+                    Thao tác
+                </th>
+                <th scope="col" class=" py-3">
+                    Thanh toán
+                </th>
+            </tr>
+        </thead>
+        <tbody class="max-h-[400px]  overflow-y-scroll">
+            @for (bill of listBill; track $index) {
+            <tr class="grid grid-cols-5">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                    {{ bill && bill.id }}
+                </th>
+                <td class="px-3 py-4 max-w-[200px]"> {{ bill && bill.email }}
+                </td>
+
+                <td class="px-3 py-4">
+                    {{bill && bill.create_at | date: 'd-M-y'}}
+                </td>
+                <td class="px-3 py-4">
+                    <a routerLink="/user/bills/{{bill && bill.id }}"
+                        class="font-medium text-white m-2 px-[10px] py-[10px] border rounded-xl bg-blue-600 hover:underline">
+                        Xem</a>
+                    @switch (bill.status) {
+                    @case (0) {
+
+                    <button (click)="SubmitStatus({status:3},bill.id)"
+                        class="font-medium text-white m-2 px-[10px] py-[10px] border rounded-xl bg-red-600 hover:underline">
+                        Huỷ</button>
+                    }
+                    @case (1) {
+
+                    <button (click)="SubmitStatus({status:2},bill.id)"
+                        class="font-medium text-white m-2 px-[10px] py-[10px] border rounded-xl bg-blue-600 hover:underline">
+                        Đã nhận</button>
+                    }
+                    @case (2) {
+                    <button (click)="SubmitStatus({status:3},bill.id)"
+                        class="font-medium text-white m-2 px-[10px] py-[10px] border rounded-xl bg-red-600 hover:underline">
+                        Từ chối</button>
+                    }
+
+                    }
+
+                </td>
+
+
+                <td class="px-3 py-4">
+                    {{bill && bill.payment }}
+                </td>
+            </tr>}
+
+
+        </tbody>
+    </table>}
+    @else {
+    <p class="m-2 text-2xl font-bold">Hiện không có đơn nào ở trạng thái này.</p>
+    }
+</div>

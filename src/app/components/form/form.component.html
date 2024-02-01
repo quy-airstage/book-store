@@ -1,0 +1,58 @@
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="max-w-sm mx-auto mt-[50px]">
+    <div class="mb-5 ">
+        <div class="flex items-center justify-center flex-col">
+            <h2 class="text-2xl font-bold">Đăng nhập</h2>
+            <img routerLink="/home" class="p-3" width="200px" src="../../../assets/public/img/logo.png" alt="" />
+
+        </div>
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Tài khoản</label>
+        <input type="email" name="user" [(ngModel)]="userData.email" #user="ngModel" required
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="Email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}">
+
+        @if (user.invalid && (user.touched || user.dirty)) {
+        <div class="inline-block text-red-500">
+            @if (user.errors?.["required"]) {
+            <span class="text-red-500">Email không hợp lệ</span>
+            }
+            @if (user.errors?.['pattern']) {
+            <span class="text-red-500">Email không đúng định dạng</span>
+            }
+        </div>
+        }
+
+
+    </div>
+    <div class=" mb-5">
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Mật
+            khẩu</label>
+        <input type="password" placeholder="Mật khẩu" name="password" [(ngModel)]="userData.password" #pass="ngModel"
+            autocomplete="current-password"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            required>
+        @if (pass.invalid && (pass.touched || pass.dirty)) {
+        <div class="inline-block text-red-500">
+            @if (pass.errors?.["required"]) {
+            <span class="text-red-500">Vui lòng nhập mật khẩu</span>
+            }
+
+        </div>
+        }
+    </div>
+    <div class="my-3 text-right">
+        <a routerLink="/login/reset-password" class="text-blue-500 font-semibold hover:underline">Bạn quên mật
+            khẩu?</a>
+    </div>
+    <div>
+
+        <button type="submit"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Đăng
+            nhập</button>
+    </div>
+    <div class="flex justify-between">
+        <span class=""></span>
+
+        <a routerLink="/login/register" class="text-blue-500 font-semibold hover:underline">Bạn chưa có tài
+            khoản?</a>
+    </div>
+</form>

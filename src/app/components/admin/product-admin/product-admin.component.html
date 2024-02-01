@@ -1,0 +1,89 @@
+<app-nav-admin></app-nav-admin>
+<div class="p-4 sm:ml-64">
+    <div class="flex items-center justify-center  mb-4 rounded p-3 bg-gray-50 dark:bg-gray-800">
+        <p class="text-2xl text-gray-400 dark:text-gray-500">
+            Quản lý sản phẩm
+        </p>
+
+    </div>
+    <div class="ml-3 flex justify-between items-center">
+        <span routerLink="/admin/product/add"
+            class="text-xl border rounded-xl border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 my-3 p-2">Thêm
+            sản
+            phẩm</span>
+        @if (alert.mess) {
+        <span class="{{ alert.color }}">{{ alert.mess }}</span>
+        }
+    </div>
+
+    <div class=" overflow-x-auto shadow-md sm:rounded-lg mt-3">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-2 py-3">
+                        Tên sản phẩm
+                    </th>
+                    <th scope="col" class="px-2 py-3">
+                        Hình sản phẩm
+                    </th>
+                    <th scope="col" class="px-2 py-3">
+                        Danh mục sản phẩm
+                    </th>
+                    <th scope="col" class="px-2 py-3">
+                        Giá
+                    </th>
+                    <th scope="col" class="px-2 py-3">
+                        Giảm giá
+                    </th>
+                    <th scope="col" class="px-2 py-3">
+                        Đã bán
+                    </th>
+                    <th scope="col" class="px-2 py-3">
+                        Thao tác
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (listPro) {
+                <tr *ngFor="let pro of listPro | paginate: { itemsPerPage: pageSize, currentPage: pageNum,totalItems: total }"
+                    class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ pro && pro.name_product }}
+                    </th>
+                    <td class="px-3 py-4 max-w-[200px]">
+                        <img width="100px" src="{{pro &&  pro.img }}" alt="">
+                    </td>
+                    <td class="px-3 py-4">
+                        {{pro && getNameCate(pro.id_category) }}
+
+                    </td>
+                    <td class="px-3 py-4">
+                        {{pro && pro.price | number:'1.0-0' }} VNĐ
+                    </td>
+                    <td class="px-3 py-4">
+                        {{pro && pro.discount }} %
+
+                    </td>
+
+                    <td class="px-3 py-4">
+                        {{pro && pro.sold }}
+
+                    </td>
+                    <td class="px-3 py-4">
+                        <a routerLink="/admin/product/edit/{{pro && pro.id }}"
+                            class="font-medium text-white m-2 px-[10px] py-[10px] border rounded-xl bg-blue-600 hover:underline">
+                            Sửa</a>
+                        <button class="m-2 px-[10px] py-[10px] bg-red-500 text-white border rounded-xl"
+                            (click)="DeleteProduct(pro.id)">Xóa</button>
+                    </td>
+                </tr>
+                }
+                <div class="flex justify-center mt-2">
+                    <pagination-controls (pageChange)="transPage($event)" previousLabel="Trước"
+                        nextLabel="Sau"></pagination-controls>
+                </div>
+
+            </tbody>
+        </table>
+    </div>
+</div>
